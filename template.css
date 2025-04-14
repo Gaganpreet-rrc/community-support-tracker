@@ -1,3 +1,53 @@
 * {
-    background-color: rgb(214, 242, 254);
+    background-color: rgba(31, 125, 208, 0.049);
+}
+
+.header-class {
+    background-color: rgba(57, 123, 147, 0.74);
+    text-align: center;
+
+}
+
+#charity-name {
+    margin-top: 1.5%;
+    margin-bottom: 1.5%;
+    font-size: medium;
+}
+
+#charity-amount {
+    margin-top: 1.5%;
+    margin-bottom: 1.5%;
+    font-size: medium;
+}
+
+#charity-donation-date {
+    margin-top: 1.5%;
+    margin-bottom: 1.5%;
+    font-size: medium;
+}
+
+#donor-message {
+    margin-top: 1.5%;
+    margin-bottom: 3%;
+    font-size: medium;
+}
+
+.bolding {
+    font-weight: bold;
+}
+
+#header-element {
+    text-align: center;
+    background-color: rgba(57, 123, 147, 0.74);
+}
+
+.link-element {
+    font-size: larger;
+}
+
+#button-element {
+    font-size: medium;
+    background-color: rgb(243, 103, 115);
+    margin-left: 5%;
+    border: 3px solid black;
 }
