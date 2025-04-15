@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="./template.css" /> 
+    <title>Volunteer Hours Tracker</title>
+</head>
+<body>
+    <main>
+        <header>
+            <h1 class="header-class">Log Volunteer Hours</h1>
+            <form id="donation">
+
+                <label for="charity-name">Name:</label><br>
+                <input type="text" id="charity-name" name="volunteer-name" placeholder="Name of Volunteer"><br>
+
+                <label for="hours">Hours Volunteered:</label><br>
+                <input type="number" id="hours" name="hours" min="0.5" step="0.5"/><br>
+
+                <button type="submit" id="button-element"> Submit</button>
+
+            </form>
+        </header>
+    </main>
+    <script src="./volunteer_tracker.js"></script>
+</body>
+</html>
