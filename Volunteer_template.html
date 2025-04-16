@@ -10,13 +10,26 @@
     <main>
         <header>
             <h1 class="header-class">Log Volunteer Hours</h1>
-            <form id="donation">
+            <form id="volunteer-form">
 
-                <label for="charity-name">Name:</label><br>
-                <input type="text" id="charity-name" name="volunteer-name" placeholder="Name of Volunteer"><br>
+                <label for="charity-name"> Charity Name:</label><br>
+                <input type="text" id="charity-name" name="charity-name" placeholder="Name of Volunteer"><br>
 
                 <label for="hours">Hours Volunteered:</label><br>
                 <input type="number" id="hours" name="hours" min="0.5" step="0.5"/><br>
+
+                <label for="date">Date:</label><br>
+                <input type="date" id="date" name="date"/><br>
+              
+                <label for="rating">Experience Rating (1-5):</label>
+                <select id="rating" name="rating" required>
+                  <option value="">Select rating</option>
+                  <option value="1">★☆☆☆☆</option>
+                  <option value="2">★★☆☆☆</option>
+                  <option value="3">★★★☆☆</option>
+                  <option value="4">★★★★☆</option>
+                  <option value="5">★★★★★</option>
+                </select>
 
                 <button type="submit" id="button-element"> Submit</button>
 
