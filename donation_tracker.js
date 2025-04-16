@@ -27,7 +27,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         let isValid = true;
 
-        // Validation checks with custom error messages
         if (charityName === "") {
             nameError.textContent = "Charity name is required.";
             isValid = false;
@@ -58,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             };
 
-            console.log("Donation Addedss:", donationData);
+            console.log("Donation Added:", donationData);
             form.reset();
         }
     });
