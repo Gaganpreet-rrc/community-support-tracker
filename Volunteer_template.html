@@ -1,56 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="./template.css" /> 
-    <title>Volunteer Hours Tracker</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="./template.css" />
+  <title>Volunteer Hours Tracker</title>
 </head>
 <body>
-        <header>
-            <h1 class="header-class">PiXELL River Financial</h1>
-        </header>
+  <header>
+    <h1 class="header-class">PiXELL River Financial</h1>
+  </header>
+  <hr>
+  <main>
+    <h2>Volunteer Hours Tracker</h2>
+    <form id="volunteer-form">
+
+      <label for="charity-name">Charity Name:</label><br>
+      <input type="text" id="charity-name" name="charity-name" placeholder="Enter charity name"><br>
+      <span id="error-charity" class="error"></span><br><br>
+
+      <label for="hours">Hours Volunteered:</label><br>
+      <input type="number" id="hours" name="hours" min="0.5" step="0.5" placeholder="e.g. 2.5"><br>
+      <span id="error-hours" class="error"></span><br><br>
+
+      <label for="date">Date:</label><br>
+      <input type="date" id="date" name="date" placeholder="Select a date"><br>
+      <span id="error-date" class="error"></span><br><br>
+
+      <label for="rating">Experience Rating (1-5):</label><br>
+      <select id="rating" name="rating">
+        <option value="">Select rating</option>
+        <option value="1">1 - Poor</option>
+        <option value="2">2 - Fair</option>
+        <option value="3">3 - Good</option>
+        <option value="4">4 - Very Good</option>
+        <option value="5">5 - Excellent</option>
+      </select><br>
+      <span id="error-rating" class="error"></span><br><br>
+
+      <button type="submit" class="button-class">Submit</button>
+
+    </form>
+</main>
+
+    <footer class="footer-class">
         <hr>
-        <main>
-            <h2>Volunteer Hours Tracker</h2>
-            <form id="volunteer-form">
-                <div class="form-group">
-                <label for="charity-name"> Charity Name:</label><br>
-                <input type="text" id="charity-name" name="charity-name" placeholder="Name of Volunteer"><br>
-                </div>
+        <p>&copy; 2025 Volunteer Hours Tracker. All rights reserved.</p>
+    </footer>
 
-                <div class="form-group">
-                <label for="hours">Hours Volunteered:</label><br>
-                <input type="number" id="hours" name="hours" min="0.5" step="0.5"/><br>
-                </div>
-
-                <div class="form-group">
-                <label for="date">Date:</label><br>
-                <input type="date" id="date" name="date"/><br>
-                </div>
-
-                <div class="form-group">
-                <label for="rating">Experience Rating (1-5):</label><br>
-                <select id="rating" name="rating"><br>
-                  <option value="">Select rating</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                </select><br>
-                </div>
-
-                <button type="submit" class="button-class"> Submit</button>
-
-            </form>
-        </main>
-
-        <footer class="footer-class"
-            <hr>
-            <p>&copy; 2025 Volunteer Hours Tracker. All rights reserved.</p>
-        </footer>
-
-    <script src="./volunteer_tracker.js"></script>
+    <script src="./Volunteer_Hours.js"></script>
 </body>
 </html>
