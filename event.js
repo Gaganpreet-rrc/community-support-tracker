@@ -2,38 +2,57 @@ document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("eventForm");
   
     form.addEventListener("submit", function (e) {
-      e.preventDefault();    
-});
-});
-
-// Collect form data
-    const eventName = document.getElementById("eventName").value.trim();
-    const repName = document.getElementById("repName").value.trim();
-    const repEmail = document.getElementById("repEmail").value.trim();
-    const role = document.getElementById("role").value;
-
-// data object    
-    const formData = {
-        eventName,
-        repName,
-        repEmail,
-        role
-      };
+      e.preventDefault();
   
-// Validate form fields
-    if (!eventName || !repName || !repEmail || !role) {
-        alert("Please fill out all fields.");
-        return error;
+      // Get input values
+      const eventName = document.getElementById("eventName").value.trim();
+      const repName = document.getElementById("repName").value.trim();
+      const repEmail = document.getElementById("repEmail").value.trim();
+      const role = document.getElementById("role").value;
+  
+      // Error elements
+      const eventNameError = document.getElementById("eventNameError");
+      const repNameError = document.getElementById("repNameError");
+      const repEmailError = document.getElementById("repEmailError");
+      const roleError = document.getElementById("roleError");
+  
+      // Clear previous errors
+      eventNameError.textContent = "";
+      repNameError.textContent = "";
+      repEmailError.textContent = "";
+      roleError.textContent = "";
+  
+      let hasError = false;
+  
+      if (!eventName) {
+        eventNameError.textContent = "eventName is required.";
+        hasError = true;
       }
   
-// Validate email format 
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(repEmail)) {
-        alert("Please enter a valid email address.");
-        return;
-    }
+      if (!repName) {
+        repNameError.textContent = "repName is required.";
+        hasError = true;
+      }
   
-    console.log("Form Data Submitted:", formData);
-    alert("Form submitted successfully!");
+      if (!repEmail) {
+        repEmailError.textContent = "repEmail is required.";
+        hasError = true;
+      } else {
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(repEmail)) {
+          repEmailError.textContent = "Invalid email format.";
+          hasError = true;
+        }
+      }
   
-    form.reset();
+      if (!role) {
+        roleError.textContent = "Please select a role.";
+        hasError = true;
+      }
+  
+      if (!hasError) {
+        form.reset();
+      }
+    });
+  });
+  
