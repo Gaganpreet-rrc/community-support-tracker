@@ -1,3 +1,33 @@
 * {
-    background-color: rgb(214, 242, 254);
+    background-color: #e0f7fa;
+    color: #003c4d;
+    font-family: Arial, sans-serif;
+}
+
+.header-class {
+    background-color: #42acdd;
+    color: white;
+    text-align: center;
+    padding: 15px;
+}
+
+.form-group {
+    margin-top: 1.5%;
+    margin-bottom: 2%;
+    font-size: medium;
+    font-weight: bold;
+}
+
+
+.button-class {
+    font-size: medium;
+    background-color: rgb(176, 20, 36);
+    margin-left: 5%;
+    border: 3px solid rgb(2, 11, 1);
+    color: white;
+}
+
+.footer-class {
+    text-align: center;
+    margin-top: 3%;
 }
