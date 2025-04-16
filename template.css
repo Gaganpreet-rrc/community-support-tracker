@@ -1,53 +1,33 @@
 * {
-    background-color: rgba(31, 125, 208, 0.049);
+    background-color: #e0f7fa;
+    color: #003c4d;
+    font-family: Arial, sans-serif;
 }
 
 .header-class {
-    background-color: rgba(57, 123, 147, 0.74);
+    background-color: #42acdd;
+    color: white;
     text-align: center;
-
+    padding: 15px;
 }
 
-#charity-name {
+.form-group {
     margin-top: 1.5%;
-    margin-bottom: 1.5%;
+    margin-bottom: 2%;
     font-size: medium;
-}
-
-#charity-amount {
-    margin-top: 1.5%;
-    margin-bottom: 1.5%;
-    font-size: medium;
-}
-
-#charity-donation-date {
-    margin-top: 1.5%;
-    margin-bottom: 1.5%;
-    font-size: medium;
-}
-
-#donor-message {
-    margin-top: 1.5%;
-    margin-bottom: 3%;
-    font-size: medium;
-}
-
-.bolding {
     font-weight: bold;
 }
 
-#header-element {
-    text-align: center;
-    background-color: rgba(57, 123, 147, 0.74);
-}
 
-.link-element {
-    font-size: larger;
-}
-
-#button-element {
+.button-class {
     font-size: medium;
-    background-color: rgb(243, 103, 115);
+    background-color: rgb(176, 20, 36);
     margin-left: 5%;
-    border: 3px solid black;
+    border: 3px solid rgb(2, 11, 1);
+    color: white;
+}
+
+.footer-class {
+    text-align: center;
+    margin-top: 3%;
 }
