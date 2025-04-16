@@ -20,22 +20,26 @@
             <div class="form-group">
                 <label for="charity-name" class="bolding">Charity Name:</label><br>
                 <input type="text" id="charity-name" name="charity-name" placeholder="Enter Name of charity"><br>
+                <span class="error" id="name-error"></span>
             </div>
 
             <div class="form-group">
                 <label for="charity-amount" class="bolding">Donation Amount:</label><br>
                 <input type="number" id="charity-amount" name="charity-amount" placeholder="Enter Donation Amount"><br>
+                <span class="error" id="amount-error"></span>
             </div>
 
             <div class="form-group">
                 <label for="charity-donation-date" class="bolding">Donation Amount:</label><br>
                 <input type="date" id="charity-donation-date" name="charity-donation-date"
                     placeholder="Choose donation date"><br>
+                <span class="error" id="date-error"></span>
             </div>
 
             <div class="form-group">
                 <label for="donor-message" class="bolding">Donation Message:</label><br>
                 <input type="text" id="donor-message" name="donor-message" placeholder="Enter a message"><br>
+                <span class="error" id="message-error"></span>
             </div>
 
             <div>
@@ -45,6 +49,7 @@
         </form>
 
     </main>
+    <hr>
     <footer class="footer-class">
         <p> &copy; 2025 Donation Tracker Portal. All rights reserved.</p>
     </footer>
