@@ -1,20 +1,20 @@
 {
-  "name": "community_support_tracker",
+  "name": "your-project-name",
   "version": "1.0.0",
-  "description": "This is a group project to develop key components that could enhance PiXELL River Financial's community engagement. The group project focuses on three main components: the Donation Tracker, Volunteer Hours Tracker, and Event Signup, which streamline the management and tracking of charitable contributions, employee volunteer efforts, and event participation, helping the company better demonstrate its positive impact on the community.",
-  "main": "donation_tracker.js",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/0416928/Community_Support_Tracker.git"
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "jsdom": "^26.1.0"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/0416928/Community_Support_Tracker/issues"
-  },
-  "homepage": "https://github.com/0416928/Community_Support_Tracker#readme"
+  "jest": {
+    "testEnvironment": "jest-environment-jsdom",
+    "setupFiles": [
+      "<rootDir>/jest.setup.js"
+    ]
+  }
 }
