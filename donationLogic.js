@@ -7,14 +7,18 @@ function validateDonationForm(charityName, donationAmount, donationDate, donorCo
         errors.charityName = "Charity name is required.";
         isValid = false;
     }
-    if (donationAmount === "" || parseFloat(donationAmount) <= 0) {
+
+    const amount = parseFloat(donationAmount);
+    if (isNaN(amount) || amount <= 0) {
         errors.donationAmount = "Enter a valid donation amount greater than 0.";
         isValid = false;
     }
+
     if (donationDate.trim() === "") {
         errors.donationDate = "Donation date is required.";
         isValid = false;
     }
+
     if (donorComment.trim() === "") {
         errors.donorComment = "Donation message is required.";
         isValid = false;
@@ -22,6 +26,7 @@ function validateDonationForm(charityName, donationAmount, donationDate, donorCo
 
     return { isValid, errors };
 }
+
 
 function processDonationData(charityName, donationAmount, donationDate, donorComment) {
     return {
@@ -49,7 +54,7 @@ function setupForm() {
         const dateError = document.getElementById("date-error");
         const messageError = document.getElementById("message-error");
 
-        // clear
+
         nameError.textContent = "";
         amountError.textContent = "";
         dateError.textContent = "";
