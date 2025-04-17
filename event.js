@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
       if (!hasError) {
         form.reset();
-      }
+    }   
     });
   });
   
