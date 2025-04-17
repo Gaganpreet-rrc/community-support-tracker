@@ -10,7 +10,6 @@ const {
 } = require("./donationLogic");
 
 beforeEach(() => {
-    // 1) Build the DOM
     document.body.innerHTML = `
       <form id="donation">
         <input type="text" id="charity-name" />
@@ -25,26 +24,25 @@ beforeEach(() => {
       <div id="message-error"></div>
     `;
 
-    // 2) Attach your submit handler
+
     setupForm();
 
-    // 3) Mock console.log
+
     console.log = jest.fn();
 });
 
-// ---------- Integration Tests ----------
 
 test("Submitting the form updates the temporary data object correctly", () => {
-    // Arrange: fill out all fields
+    // Arrange
     document.getElementById("charity-name").value = "Charity X";
     document.getElementById("charity-amount").value = "100";
     document.getElementById("charity-donation-date").value = "2025-04-16";
     document.getElementById("donor-message").value = "Great cause!";
 
-    // Act: submit
+    // Act
     document.getElementById("donation").dispatchEvent(new Event("submit"));
 
-    // Assert: console.log called with correct object
+    // Assert
     expect(console.log).toHaveBeenCalledWith("Donation Added:", {
         charityName: "Charity X",
         donationAmount: 100,
@@ -54,16 +52,16 @@ test("Submitting the form updates the temporary data object correctly", () => {
 });
 
 test("Submitting with incomplete data shows error messages", () => {
-    // Arrange: leave name & date empty
+    // Arrange
     document.getElementById("charity-name").value = "";
     document.getElementById("charity-amount").value = "100";
     document.getElementById("charity-donation-date").value = "";
     document.getElementById("donor-message").value = "Great cause!";
 
-    // Act: submit
+    // Act
     document.getElementById("donation").dispatchEvent(new Event("submit"));
 
-    // Assert: error messages in DOM
+    // Assert
     expect(document.getElementById("name-error").textContent).toBe(
         "Charity name is required."
     );
@@ -72,7 +70,7 @@ test("Submitting with incomplete data shows error messages", () => {
     );
 });
 
-// ---------- Unit Tests ----------
+
 
 test("validateDonationForm returns errors for all empty fields", () => {
     const { isValid, errors } = validateDonationForm("", "", "", "");
@@ -102,15 +100,15 @@ test("validateDonationForm flags invalid donation amounts", () => {
 
 test("processDonationData returns trimmed and parsed data", () => {
     const data = processDonationData(
-        "  Red Cross  ",
+        "  Red Cross charity  ",
         "100",
-        "2025-04-16",
-        "  Great job! "
+        "2025-04-15",
+        "  Good job! "
     );
     expect(data).toEqual({
-        charityName: "Red Cross",
+        charityName: "Red Cross charity",
         donationAmount: 100,
-        donationDate: "2025-04-16",
-        donorComment: "Great job!"
+        donationDate: "2025-04-15",
+        donorComment: "Good job!"
     });
 });
