@@ -1,0 +1,20 @@
+{
+  "name": "community_support_tracker",
+  "version": "1.0.0",
+  "description": "This is a group project to develop key components that could enhance PiXELL River Financial's community engagement. The group project focuses on three main components: the Donation Tracker, Volunteer Hours Tracker, and Event Signup, which streamline the management and tracking of charitable contributions, employee volunteer efforts, and event participation, helping the company better demonstrate its positive impact on the community.",
+  "main": "donation_tracker.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/0416928/Community_Support_Tracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/0416928/Community_Support_Tracker/issues"
+  },
+  "homepage": "https://github.com/0416928/Community_Support_Tracker#readme"
+}
