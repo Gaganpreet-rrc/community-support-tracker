@@ -17,20 +17,20 @@
     <form id="eventForm">
       <div class="form-group">
         <label for="eventName">Event Name:</label><br>
-        <input type="text" id="eventName" placeholder="Enter the name of the event" />
-        <span id="eventNameError"></div>
+        <input type="text" id="eventName" placeholder="Enter the name of the event" /><br>
+        <span class="error" id="eventNameError"></div>
       </div>
 
       <div class="form-group">
         <label for="repName">Representative's Name:</label><br>
-        <input type="text" id="repName" placeholder="Enter your full name" />
-        <span id="repNameError"></span>
+        <input type="text" id="repName" placeholder="Enter your full name" /><br>
+        <span class="error" id="repNameError"></span>
       </div>
 
       <div class="form-group">
         <label for="repEmail">Representative's Email:</label><br>
-        <input type="email" id="repEmail" placeholder="Enter your email address" />
-        <span id="repEmailError"></span>
+        <input type="email" id="repEmail" placeholder="Enter your email address" /><br>
+        <span class="error" id="repEmailError"></span>
       </div>
 
       <div class="form-group">
@@ -40,8 +40,8 @@
           <option value="Sponsor">Sponsor</option>
           <option value="Participant">Participant</option>
           <option value="Organizer">Organizer</option>
-        </select>
-        <span id="roleError"></span>
+        </select><br>
+        <span claSS="error" id="roleError"></span>
       </div>
 
       <button type="submit" class="button-class">Submit</button>
