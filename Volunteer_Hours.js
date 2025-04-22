@@ -70,16 +70,3 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
   
-export function renderVolunteerTable() {
-}
-
-export function loadVolunteerData() {
-    
-    const volunteerData = JSON.parse(localStorage.getItem("volunteerData")) || [];
-    renderVolunteerTable(volunteerData);
-}
-
-export function calculateTotalHours(data) {
-    
-    return data.reduce((total, entry) => total + entry.hours, 0);
-}
