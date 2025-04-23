@@ -96,4 +96,4 @@ document.addEventListener("DOMContentLoaded", () => {
         const total = logs.reduce((sum, log) => sum + log.hours, 0);
         totalDisplay.textContent = total.toFixed(1);
     }
-});
+;
