@@ -1,3 +1,4 @@
+
 function validateDonationForm(charityName, donationAmount, donationDate, donorComment) {
     const errors = { charityName: "", donationAmount: "", donationDate: "", donorComment: "" };
     let isValid = true;

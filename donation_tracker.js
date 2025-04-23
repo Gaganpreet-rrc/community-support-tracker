@@ -47,6 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
             isValid = false;
         }
 
+
         if (isValid) {
             const donationData = {
                 charityName,
