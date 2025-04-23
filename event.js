@@ -1,83 +1,102 @@
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("eventForm");
-  const table = document.querySelector("#signupTable tbody");
+  const tableBody = document.querySelector("#signupTable tbody");
   const summary = document.getElementById("summary");
 
   let signups = JSON.parse(localStorage.getItem("signups")) || [];
 
-  function saveSignups() {
-    localStorage.setItem("signups", JSON.stringify(signups));
-  }
+  signups.forEach(addSignupToTable);
+  updateSummary();
 
-  function updateTable() {
-    table.innerHTML = "";
-    signups.forEach((signup, index) => {
-      const row = document.createElement("tr");
-      row.innerHTML = `
-        <td>${signup.event}</td>
-        <td>${signup.name}</td>
-        <td>${signup.email}</td>
-        <td>${signup.role}</td>
-        <td><button data-index="${index}" class="delete-btn">Delete</button></td>
-      `;
-      table.appendChild(row);
-    });
+  form.addEventListener("submit", function (event) {
+      event.preventDefault();
 
-    document.querySelectorAll(".delete-btn").forEach(button => {
-      button.addEventListener("click", (e) => {
-        const index = e.target.getAttribute("data-index");
-        signups.splice(index, 1);
-        saveSignups();
-        updateTable();
-        updateSummary();
-      });
-    });
-  }
+      const eventName = document.getElementById("eventName").value.trim();
+      const repName = document.getElementById("repName").value.trim();
+      const repEmail = document.getElementById("repEmail").value.trim();
+      const role = document.getElementById("role").value;
 
-  function updateSummary() {
-    const counts = { Sponsor: 0, Participant: 0, Organizer: 0 };
-    signups.forEach(s => counts[s.role]++);
-    summary.innerHTML = `
-      <h3>Role Summary</h3>
-      <p>Sponsors: ${counts.Sponsor}</p>
-      <p>Participants: ${counts.Participant}</p>
-      <p>Organizers: ${counts.Organizer}</p>
-    `;
-  }
+      const eventNameError = document.getElementById("eventNameError");
+      const repNameError = document.getElementById("repNameError");
+      const repEmailError = document.getElementById("repEmailError");
+      const roleError = document.getElementById("roleError");
 
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
+      eventNameError.textContent = "";
+      repNameError.textContent = "";
+      repEmailError.textContent = "";
+      roleError.textContent = "";
 
-    const event = document.getElementById("eventName").value.trim();
-    const name = document.getElementById("repName").value.trim();
-    const email = document.getElementById("repEmail").value.trim();
-    const role = document.getElementById("role").value;
+      let isValid = true;
 
-    // Clear previous error messages
-    document.getElementById("eventNameError").textContent = "";
-    document.getElementById("repNameError").textContent = "";
-    document.getElementById("repEmailError").textContent = "";
-    document.getElementById("roleError").textContent = "";
+      if (eventName === "") {
+          eventNameError.textContent = "Event name is required.";
+          isValid = false;
+      }
 
-    // Basic validation
-    if (!event || !name || !email || !role) {
-      console.log("Please fill in all fields.");
+      if (repName === "") {
+          repNameError.textContent = "Name is required.";
+          isValid = false;
+      }
 
-      if (!event) document.getElementById("eventNameError").textContent = "Event name is required.";
-      if (!name) document.getElementById("repNameError").textContent = "Name is required.";
-      if (!email) document.getElementById("repEmailError").textContent = "Email is required.";
-      if (!role) document.getElementById("roleError").textContent = "Please select a role.";
+      if (repEmail === "") {
+          repEmailError.textContent = "Email is required.";
+          isValid = false;
+      }
 
-      return;
-    }
+      if (role === "") {
+          roleError.textContent = "Please select a role.";
+          isValid = false;
+      }
 
-    signups.push({ event, name, email, role });
-    saveSignups();
-    updateTable();
-    updateSummary();
-    form.reset();
+      if (isValid) {
+          const signupData = {
+              id: Date.now(),
+              event: eventName,
+              name: repName,
+              email: repEmail,
+              role: role
+          };
+
+          signups.push(signupData);
+          localStorage.setItem("signups", JSON.stringify(signups));
+
+          addSignupToTable(signupData);
+          updateSummary();
+          form.reset();
+      }
   });
 
-  updateTable();
-  updateSummary();
+  function addSignupToTable(signup) {
+      const row = document.createElement("tr");
+
+      row.innerHTML = `
+          <td>${signup.event}</td>
+          <td>${signup.name}</td>
+          <td>${signup.email}</td>
+          <td>${signup.role}</td>
+          <td><button class="delete-btn" data-id="${signup.id}">Delete</button></td>`;
+
+      tableBody.appendChild(row);
+  }
+
+  tableBody.addEventListener("click", function (e) {
+      if (e.target.classList.contains("delete-btn")) {
+          const id = parseInt(e.target.getAttribute("data-id"));
+          signups = signups.filter(s => s.id !== id);
+          localStorage.setItem("signups", JSON.stringify(signups));
+          e.target.closest("tr").remove();
+          updateSummary();
+      }
+  });
+
+  function updateSummary() {
+      const counts = { Sponsor: 0, Participant: 0, Organizer: 0 };
+      signups.forEach(s => counts[s.role]++);
+      summary.innerHTML = `
+          <h3>Role Summary</h3>
+          <p>Sponsors: ${counts.Sponsor}</p>
+          <p>Participants: ${counts.Participant}</p>
+          <p>Organizers: ${counts.Organizer}</p>
+      `;
+  }
 });
