@@ -10,9 +10,20 @@
   "devDependencies": {
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
-    "jsdom": "^26.1.0"
+    "jsdom": "^26.1.0",
+    "@babel/core": "^7.21.5",
+    "@babel/preset-env": "^7.21.5",
+    "babel-jest": "^29.7.0"
   },
   "jest": {
+    "transform": {
+      "^.+\\.js$": "babel-jest"
+    },
+    "transformIgnorePatterns": [
+      "/node_modules/(?!your-package-to-transform).*/"
+    ],
+    "testEnvironment": "jest-environment-jsdom"
+  }
     "testEnvironment": "jest-environment-jsdom",
     "setupFiles": [
       "<rootDir>/jest.setup.js"
