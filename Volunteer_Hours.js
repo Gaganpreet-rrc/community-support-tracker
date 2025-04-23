@@ -134,4 +134,4 @@ document.addEventListener("DOMContentLoaded", () => {
         totalDisplay.textContent = total.toFixed(1);
         console.log("Updated total hours:", total.toFixed(1));
     }
-});
+;
