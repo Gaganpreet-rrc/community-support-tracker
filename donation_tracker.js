@@ -75,8 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <td>$${donation.donationAmount.toFixed(2)}</td>
             <td>${donation.donationDate}</td>
             <td>${donation.donorComment}</td>
-            <td><button class="delete-btn" data-id="${donation.id}">Delete</button></td>
-        `;
+            <td><button class="delete-btn" data-id="${donation.id}">Delete</button></td>`;
 
         tableBody.appendChild(row);
     }
@@ -96,3 +95,6 @@ document.addEventListener("DOMContentLoaded", () => {
         totalDisplay.textContent = total.toFixed(2);
     }
 });
+
+
+
