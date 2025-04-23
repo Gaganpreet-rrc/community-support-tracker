@@ -1,85 +1,67 @@
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("volunteer-form");
-  
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-  
-    // Get input values
-    const charityName = document.getElementById("charity-name").value.trim();
-    const hoursValue = document.getElementById("hours").value;
-    const date = document.getElementById("date").value;
-    const ratingValue = document.getElementById("rating").value;
-  
-    // Error elements
-    const charityNameError = document.getElementById("error-charity");
-    const hoursError = document.getElementById("error-hours");
-    const dateError = document.getElementById("error-date");
-    const ratingError = document.getElementById("error-rating");
-  
-    // Clear previous errors
-    charityNameError.textContent = "";
-    hoursError.textContent = "";
-    dateError.textContent = "";
-    ratingError.textContent = "";
-  
-    let hasError = false;
-  
-    // Validate Charity Name
-    if (charityName === "") {
-        charityNameError.textContent = "Charity name is required.";
-        hasError = true;
-    }
-  
-    // Validate Hours
-    const hours = parseFloat(hoursValue);
-    if (hoursValue === "") {
-        hoursError.textContent = "Hours are required.";
-        hasError = true;
-    } else if (isNaN(hours) || hours <= 0) {
-        hoursError.textContent = "Please enter a valid number greater than 0.";
-        hasError = true;
-    }
-  
-    // Validate Date
-    if (date === "") {
-        dateError.textContent = "Date is required.";
-        hasError = true;
-    }
-  
-    // Validate Rating
-    const rating = parseInt(ratingValue);
-    if (ratingValue === "") {
-        ratingError.textContent = "Rating is required.";
-        hasError = true;
-    } else if (isNaN(rating) || rating < 1 || rating > 5) {
-        ratingError.textContent = "Rating must be between 1 and 5.";
-        hasError = true;
-    }
-  
-    // Submit data if no errors
-    if (!hasError) {
-        const volunteerData = {
-          charityName,
-          hours,
-          date,
-          rating
+    const tableBody = document.querySelector("#hoursTable tbody");
+    const totalDisplay = document.getElementById("total-hours");
+
+    let logs = JSON.parse(localStorage.getItem("volunteerLogs")) || [];
+
+    logs.forEach(addLogToTable);
+    updateTotal();
+
+    form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const charity = document.getElementById("charity-name").value.trim();
+        const hours = document.getElementById("hours").value;
+        const date = document.getElementById("date").value;
+        const rating = document.getElementById("rating").value;
+
+        if (!charity || !hours || !date || !rating) {
+            console.log("Please fill out all fields.");
+            return;
+        }
+
+        const log = {
+            id: Date.now(),
+            charity,
+            hours: parseFloat(hours),
+            date,
+            rating
         };
-        console.log("Volunteer Data Submitted:", volunteerData);
+
+        logs.push(log);
+        localStorage.setItem("volunteerLogs", JSON.stringify(logs));
+
+        addLogToTable(log);
+        updateTotal();
         form.reset();
-    }
     });
-  });
-  
-export function renderVolunteerTable() {
-}
 
-export function loadVolunteerData() {
-    
-    const volunteerData = JSON.parse(localStorage.getItem("volunteerData")) || [];
-    renderVolunteerTable(volunteerData);
-}
+    function addLogToTable(log) {
+        const row = document.createElement("tr");
 
-export function calculateTotalHours(data) {
-    
-    return data.reduce((total, entry) => total + entry.hours, 0);
-}
+        row.innerHTML = `
+            <td>${log.charity}</td>
+            <td>${log.hours}</td>
+            <td>${log.date}</td>
+            <td>${log.rating}</td>
+            <td><button class="delete-btn" data-id="${log.id}">Delete</button></td>`;
+
+        tableBody.appendChild(row);
+    }
+
+    tableBody.addEventListener("click", function (e) {
+        if (e.target.classList.contains("delete-btn")) {
+            const id = parseInt(e.target.getAttribute("data-id"));
+            logs = logs.filter(log => log.id !== id);
+            localStorage.setItem("volunteerLogs", JSON.stringify(logs));
+            e.target.closest("tr").remove();
+            updateTotal();
+        }
+    });
+
+    function updateTotal() {
+        const total = logs.reduce((sum, log) => sum + log.hours, 0);
+        totalDisplay.textContent = total.toFixed(1);
+    }
+});
