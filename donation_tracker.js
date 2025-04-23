@@ -1,5 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("donation");
+    const tableBody = document.querySelector("#donationTable tbody");
+    const totalDisplay = document.getElementById("total-amount");
+
+    let donations = JSON.parse(localStorage.getItem("donations")) || [];
+
+    donations.forEach(addDonationToTable);
+    updateTotal();
 
     form.addEventListener("submit", function (event) {
         event.preventDefault();
@@ -9,17 +16,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const donationDate = document.getElementById('charity-donation-date').value;
         const donorComment = document.getElementById('donor-message').value.trim();
 
-        console.log(charityName);
-        console.log(donationAmount);
-        console.log(donationDate);
-        console.log(donorComment);
-
         const nameError = document.getElementById("name-error");
         const amountError = document.getElementById("amount-error");
         const dateError = document.getElementById("date-error");
         const messageError = document.getElementById("message-error");
 
-        // Clear previous errors
+
         nameError.textContent = "";
         amountError.textContent = "";
         dateError.textContent = "";
@@ -32,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
             isValid = false;
         }
 
-        if (donationAmount === "") {
+        if (donationAmount === "" || parseFloat(donationAmount) <= 0) {
             amountError.textContent = "Enter a valid donation amount greater than 0.";
             isValid = false;
         }
@@ -49,15 +51,48 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (isValid) {
             const donationData = {
+                id: Date.now(),
                 charityName,
                 donationAmount: parseFloat(donationAmount),
                 donationDate,
                 donorComment
-
             };
 
-            console.log("Donation Added:", donationData);
+            donations.push(donationData);
+            localStorage.setItem("donations", JSON.stringify(donations));
+
+            addDonationToTable(donationData);
+            updateTotal();
             form.reset();
         }
     });
+
+    function addDonationToTable(donation) {
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+            <td>${donation.charityName}</td>
+            <td>$${donation.donationAmount.toFixed(2)}</td>
+            <td>${donation.donationDate}</td>
+            <td>${donation.donorComment}</td>
+            <td><button class="delete-btn" data-id="${donation.id}">Delete</button></td>
+        `;
+
+        tableBody.appendChild(row);
+    }
+
+    tableBody.addEventListener("click", function (e) {
+        if (e.target.classList.contains("delete-btn")) {
+            const id = parseInt(e.target.getAttribute("data-id"));
+            donations = donations.filter(d => d.id !== id);
+            localStorage.setItem("donations", JSON.stringify(donations));
+            e.target.closest("tr").remove();
+            updateTotal();
+        }
+    });
+
+    function updateTotal() {
+        const total = donations.reduce((sum, d) => sum + d.donationAmount, 0);
+        totalDisplay.textContent = total.toFixed(2);
+    }
 });
