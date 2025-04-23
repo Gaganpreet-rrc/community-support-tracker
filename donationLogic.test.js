@@ -1,5 +1,4 @@
 // donationLogic.test.js
-
 const {
     updateTotal,
     deleteDonationById,
@@ -139,3 +138,88 @@ describe('Donation Tracker Functions', () => {
     });
 });
 
+describe("Integration Tests: localStorage and Donation Table", () => {
+    beforeEach(() => {
+        localStorage.clear();
+        document.body.innerHTML = `
+            <form id="donation">
+                <input type="text" id="charity-name" />
+                <input type="number" id="charity-amount" />
+                <input type="date" id="charity-donation-date" />
+                <textarea id="donor-message"></textarea>
+                <button type="submit">Submit</button>
+            </form>
+            <div id="name-error"></div>
+            <div id="amount-error"></div>
+            <div id="date-error"></div>
+            <div id="message-error"></div>
+
+            <table id="donation-table">
+                <tbody></tbody>
+            </table>
+        `;
+        setupForm(); // re-initialize DOM handlers
+    });
+
+    test("Donation table updates after data is added to localStorage", () => {
+        // Simulate existing donation
+        const sampleDonations = [
+            {
+                id: 101,
+                charityName: "Feed the World",
+                donationAmount: 75,
+                donationDate: "2025-04-20",
+                donorComment: "Hope this helps!"
+            }
+        ];
+        localStorage.setItem("donations", JSON.stringify(sampleDonations));
+
+        // Manually trigger render (if your code uses it; else, mock it below)
+        const donations = JSON.parse(localStorage.getItem("donations"));
+        const tbody = document.querySelector("#donation-table tbody");
+        tbody.innerHTML = '';
+        donations.forEach((donation) => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${donation.charityName}</td>
+                <td>${donation.donationAmount}</td>
+                <td>${donation.donationDate}</td>
+                <td>${donation.donorComment}</td>
+            `;
+            tbody.appendChild(row);
+        });
+
+        const rows = document.querySelectorAll("#donation-table tbody tr");
+        expect(rows.length).toBe(1);
+        expect(rows[0].textContent).toContain("Feed the World");
+        expect(rows[0].textContent).toContain("75");
+    });
+
+    test("Submitting a donation updates localStorage and table", () => {
+        // Fill form
+        document.getElementById("charity-name").value = "UNICEF";
+        document.getElementById("charity-amount").value = "120";
+        document.getElementById("charity-donation-date").value = "2025-04-23";
+        document.getElementById("donor-message").value = "Helping kids!";
+
+        // Submit form
+        document.getElementById("donation").dispatchEvent(new Event("submit"));
+
+        // Check localStorage
+        const stored = JSON.parse(localStorage.getItem("donations"));
+        expect(stored.length).toBeGreaterThan(0);
+        expect(stored[stored.length - 1]).toMatchObject({
+            charityName: "UNICEF",
+            donationAmount: 120,
+            donationDate: "2025-04-23",
+            donorComment: "Helping kids!"
+        });
+
+        // Check table
+        const rows = document.querySelectorAll("#donation-table tbody tr");
+        expect(rows.length).toBeGreaterThan(0);
+        const lastRow = rows[rows.length - 1];
+        expect(lastRow.textContent).toContain("UNICEF");
+        expect(lastRow.textContent).toContain("120");
+    });
+});

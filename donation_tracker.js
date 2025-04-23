@@ -21,7 +21,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const dateError = document.getElementById("date-error");
         const messageError = document.getElementById("message-error");
 
-
         nameError.textContent = "";
         amountError.textContent = "";
         dateError.textContent = "";
