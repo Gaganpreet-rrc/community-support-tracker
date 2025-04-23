@@ -100,5 +100,3 @@ module.exports = {
     processDonationData,
     setupForm
 };
-
-
