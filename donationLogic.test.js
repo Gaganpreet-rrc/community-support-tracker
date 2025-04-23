@@ -1,13 +1,14 @@
 // donationLogic.test.js
 
-/**
- * @jest-environment jsdom
- */
 const {
+    updateTotal,
+    deleteDonationById,
     validateDonationForm,
     processDonationData,
     setupForm
-} = require("./donationLogic");
+} = require('./donationLogic');
+
+
 
 beforeEach(() => {
     document.body.innerHTML = `
@@ -112,3 +113,29 @@ test("processDonationData returns trimmed and parsed data", () => {
         donorComment: "Good job!"
     });
 });
+
+
+
+describe('Donation Tracker Functions', () => {
+    const donations = [
+        { id: 1, donationAmount: 20 },
+        { id: 2, donationAmount: 30 },
+        { id: 3, donationAmount: 50 }
+    ];
+
+    test('calculates total donation amount correctly', () => {
+        expect(updateTotal(donations)).toBe(100);
+    });
+
+    test('deleting a record updates the donation list', () => {
+        const updated = deleteDonationById(donations, 2);
+        expect(updated).toHaveLength(2);
+        expect(updated.find(d => d.id === 2)).toBeUndefined();
+    });
+
+    test('total amount updates correctly after deletion', () => {
+        const updated = deleteDonationById(donations, 2);
+        expect(updateTotal(updated)).toBe(70);
+    });
+});
+
