@@ -137,3 +137,4 @@ describe('Donation Tracker Functions', () => {
         expect(updateTotal(updated)).toBe(70);
     });
 });
+ 
