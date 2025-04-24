@@ -86,6 +86,38 @@ document.addEventListener("DOMContentLoaded", () => {
         tableBody.appendChild(row);
     }
 
+    addLogToTable(charityName, hours, date, rating);
+    saveLogToStorage(charityName, hours, date, rating);
+    form.reset();
+  });
+
+  function addLogToTable(charity, hours, date, rating) {
+    const newRow = tableBody.insertRow();
+    newRow.innerHTML = `
+      <td>${charity}</td>
+      <td>${hours}</td>
+      <td>${date}</td>
+      <td>${rating}</td>
+      <td><button onclick="deleteLog(this)">Delete</button></td>
+    `;
+  }
+
+  function saveLogToStorage(charity, hours, date, rating) {
+    const logs = JSON.parse(localStorage.getItem("volunteerLogs")) || [];
+    logs.push({ charity, hours, date, rating });
+    localStorage.setItem("volunteerLogs", JSON.stringify(logs));
+  }
+
+  function deleteLog(button) {
+    const row = button.closest("tr");
+    const index = Array.from(tableBody.rows).indexOf(row);
+    row.remove();
+
+    // Remove from localStorage
+    const logs = JSON.parse(localStorage.getItem("volunteerLogs")) || [];
+    logs.splice(index, 1);
+    localStorage.setItem("volunteerLogs", JSON.stringify(logs));
+  }
     tableBody.addEventListener("click", function (e) {
         if (e.target.classList.contains("delete-btn")) {
             const id = parseInt(e.target.getAttribute("data-id"));
@@ -102,4 +134,6 @@ document.addEventListener("DOMContentLoaded", () => {
         totalDisplay.textContent = total.toFixed(1);
         console.log("Updated total hours:", total.toFixed(1));
     }
+
 });
+

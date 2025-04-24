@@ -1,4 +1,3 @@
-
 function validateDonationForm(charityName, donationAmount, donationDate, donorComment) {
     const errors = { charityName: "", donationAmount: "", donationDate: "", donorComment: "" };
     let isValid = true;
@@ -86,4 +85,18 @@ function setupForm() {
     });
 }
 
-module.exports = { validateDonationForm, processDonationData, setupForm };
+function updateTotal(donations) {
+    return donations.reduce((sum, d) => sum + d.donationAmount, 0);
+}
+
+function deleteDonationById(donations, idToDelete) {
+    return donations.filter(donation => donation.id !== idToDelete);
+}
+
+module.exports = {
+    updateTotal,
+    deleteDonationById,
+    validateDonationForm,
+    processDonationData,
+    setupForm
+};
